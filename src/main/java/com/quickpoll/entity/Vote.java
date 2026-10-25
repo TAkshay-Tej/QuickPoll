@@ -6,7 +6,14 @@ import lombok.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = {"poll_id", "user_id"}))
+@Table(
+        name = "votes",
+        indexes = {
+                // Composite unique index: enforces one vote per user per poll
+                // and serves the existsByPollIdAndUserId() lookup.
+                @Index(name = "idx_votes_poll_user", columnList = "poll_id, user_id", unique = true)
+        }
+)
 @Getter
 @Setter
 @NoArgsConstructor

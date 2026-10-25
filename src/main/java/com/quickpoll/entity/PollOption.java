@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "poll_options")
+@Table(
+        name = "poll_options",
+        indexes = @Index(name = "idx_poll_options_poll", columnList = "poll_id")
+)
 @Getter
 @Setter
 @NoArgsConstructor
